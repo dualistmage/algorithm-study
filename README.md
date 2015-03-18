@@ -2,8 +2,6 @@
 
 This site is for reviewing source code of algorithm problems.
 
-## How to use
+# How to use
 
-How to use
-
-## Study Schedule
+Click wiki page to see it.
