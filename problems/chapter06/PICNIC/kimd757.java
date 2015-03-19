@@ -9,7 +9,7 @@ public class Picnic {
         int maxTestCase, curTestCaseNum = 0;
         boolean isPairLine = false;
 
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         maxTestCase = scanner.nextInt();
         scanner.nextLine();
 
