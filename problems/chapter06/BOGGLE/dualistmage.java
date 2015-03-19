@@ -1,4 +1,4 @@
-package chapter06.BOGGLE;
+package chapter07.BOGGLE;
 
 import java.io.BufferedReader;
 import java.io.IOException;

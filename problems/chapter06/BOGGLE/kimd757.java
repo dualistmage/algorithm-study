@@ -3,7 +3,7 @@ import java.io.*;
 /**
  * Created by Administrator on 2015-03-12.
  */
-public class Boggle {
+public class kimd757 {
 
     static int[] xPointAry = {-1, -1, -1,  0, 0,  1, 1, 1};
     static int[] yPointAry = {-1,  0,  1, -1, 1, -1, 0, 1};
