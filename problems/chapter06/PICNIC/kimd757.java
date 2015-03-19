@@ -1,49 +1,125 @@
-class Combination {
-  private int n, r;
-  private int[] index;
-  private boolean hasNext = true;
-    
-  public Combination(int n, int r) {
-    this.n = n;
-    this.r = r;
-    index = new int[r];
-    for (int i = 0; i<r; i++) index[i] = i;
-  }
+import java.util.Arrays;
+import java.util.Scanner;
 
-  public boolean hasNext() { return hasNext; }
+/**
+ * Created by KDH on 2015-03-19.
+ */
+public class Picnic {
+    public static void main(String[] args){
+        int maxTestCase, curTestCaseNum = 0;
+        boolean isPairLine = false;
 
-  // Based on code from KodersCode:
-  // The algorithm is from Applied Combinatorics, by Alan Tucker.
-  // Move the index forward a notch. The algorithm finds the rightmost
-  // index element that can be incremented, increments it, and then 
-  // changes the elements to the right to each be 1 plus the element on their left. 
-  //
-  // For example, if an index of 5 things taken 3 at a time is at {0 3 4}, only the 0 can
-  // be incremented without running out of room. The next index is {1, 1+1, 1+2) or
-  // {1, 2, 3}. This will be followed by {1, 2, 4}, {1, 3, 4}, and {2, 3, 4}.
-    
-  private void moveIndex() {
-    int i = rightmostIndexBelowMax();
-    if (i >= 0) {
-      index[i] = index[i]+1; 
-      for (int j = i+1; j<r; j++)
-        index[j] = index[j-1] + 1;
+        Scanner scanner = new Scanner(System.in);
+        maxTestCase = scanner.nextInt();
+        scanner.nextLine();
+
+        int peopleCnt=0, pairCnt=0, validCase=0;
+        while( (curTestCaseNum/2) < maxTestCase ){
+            String readLine = scanner.nextLine();
+
+            String[] readLineAry = readLine.split(" ");
+            int readLineAryLength = readLineAry.length;
+
+            int[] pairAry = new int[readLineAryLength];
+
+            if( isPairLine ){
+                if( (readLineAryLength/2) != pairCnt ){
+                    break;
+                }else{
+                    validCase = 0;
+
+                    for(int idx = 0; idx < readLineAryLength; idx++ ){
+                        pairAry[idx] = Integer.parseInt(readLineAry[idx]);
+                    }
+
+                    Combination combi = new Combination( (readLineAryLength/2) , (peopleCnt/2) );
+
+                    while(combi.hasNext()){
+                        int[] pair = combi.next();
+                        System.out.println(Arrays.toString(pair));
+                        int total = 0;
+                        int[] peopleValidationAry = new int[peopleCnt];
+
+                        for(int idx=0; idx<pair.length; idx++){
+                            peopleValidationAry[pairAry[pair[idx]*2]]= 1;
+                            peopleValidationAry[pairAry[pair[idx]*2+1]] = 1;
+                        }
+
+                        boolean isValidCase = true;
+                        for(int idx=0; idx<peopleValidationAry.length; idx++){
+                            if(peopleValidationAry[idx] == 0){
+                                isValidCase = false;
+                                break;
+                            }
+                        }
+
+                        if(isValidCase)
+                            validCase++;
+                    }
+                    System.out.println("Valid Case : "  + validCase );
+                }
+                isPairLine = false;
+            }else{
+                if ( readLineAry.length != 2 ){
+                    break;
+                }else{
+                    peopleCnt = Integer.parseInt(readLineAry[0]);
+                    pairCnt = Integer.parseInt(readLineAry[1]);
+                }
+                isPairLine = true;
+            }
+            curTestCaseNum ++;
+        }
     }
-    else hasNext = false;
-  }
-  
-  public int[] next() {
-    if (!hasNext) return null;
-    int[] result = new int[r];
-    for (int i=0; i<r; i++) result[i] = index[i];
-    moveIndex();
-    return result;
-  }
+}
 
-   // return int,the index which can be bumped up.
-  private int rightmostIndexBelowMax() {
-    for (int i = r-1; i>=0; i--)
-        if (index[i] < n - r + i) return i;
-    return -1;
-  }
+
+class Combination {
+    private int n, r;
+    private int[] index;
+    private boolean hasNext = true;
+
+    public Combination(int n, int r) {
+        this.n = n;
+        this.r = r;
+        index = new int[r];
+        for(int idx=0; idx<r; idx++){
+            index[idx] = idx;
+        }
+    }
+
+    public boolean hasNext() {
+        return hasNext;
+    }
+
+    private void moveToNextIndex() {
+        int changeIndex = -1;
+
+        for( int i = r-1; i>=0; i-- ){
+            if( index[i] < n-r+i ){
+                changeIndex = i;
+                break;
+            }
+        }
+
+        if( changeIndex >= 0 ) {
+            index[changeIndex] = index[changeIndex]+1;
+            for (int j = changeIndex+1; j<r; j++)
+                index[j] = index[j-1] + 1;
+        }else{
+            hasNext = false;
+        }
+    }
+
+    public int[] next() {
+        if( !hasNext ){
+            return null;
+        }
+        int[] result = new int[r];
+        for(int i=0; i<r; i++){
+            result[i] = index[i];
+        }
+        moveToNextIndex();
+        return result;
+    }
 }
