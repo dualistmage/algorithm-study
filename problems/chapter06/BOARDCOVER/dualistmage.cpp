@@ -2,24 +2,45 @@
 
 using namespace std;
 
-int getNumOfBoardCover(int height, int width, string* board);
+class Board {
+    public: //  const
+        const char BLANK = '.';
+        const char FILLED = '#';
+
+    public: // method
+        int calcFreeSpace();
+        int getNumOfBoardCoverCase(int x, int y);
+
+    public: // field
+        int height_;
+        int width_;
+        int freeSpace_;
+        string block_[20];
+};
 
 int main(int argc, char* argv[])
 {
-	int count = 0, height, width, possibleCaseNum;
-	string board[20];
+	int count = 0;
+    Board board;
 
 	cin >> count;
 
 	while (count > 0)
 	{
 		// read test case
-		cin >> height >> width;
-		for (int y = 0; y < height; y++)
-			cin >> board[y];
+		cin >> board.height_ >> board.width_;
+		for (int y = 0; y < board.height_; y++)
+			cin >> board.block_[y];
 
-		// process
-		possibleCaseNum = getNumOfBoardCover(height, width, board);
+        if( board.calcFreeSpace() % 3 != 0 )
+        {
+            possibleCaseNum = 0;
+        }
+        else
+        {
+            // process
+            possibleCaseNum = board.getNumOfBoardCoverCase(0, 0, 0);
+        }
 
 		// print an answer
 		cout << possibleCaseNum << endl;
@@ -29,20 +50,37 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-int getNumOfBoardCover(int height, int width, string* board)
+int Board::calcFreeSpace()
 {
-	cout << "height : " << height << endl;
-	cout << "width  : " << width << endl;
-	cout << "board" << endl;
-	cout << "--------------------" << endl;
-	for (int y = 0; y < height; y++)
+    int freeSpace_ = 0;
+	for (int y = 0; y < height_; y++)
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < width_; x++)
 		{
-			cout << board[y][x];
+            if( block_[y][x] == BLANK )
+                freeSpace++;
 		}
-		cout << endl;
 	}
-	cout << "--------------------" << endl;
-	return 0;
+	return freeSpace;
 }
+
+int Board::getNumOfBoardCoverCase(int x, int y, int pattern)
+{
+    if( freeSpace_ == 0 )
+    {
+        return 1;
+    }
+    if( y == (height_ -1) )
+    {
+        return 0;
+    }
+
+    int restCoverCase = 0;
+    for( int nextY = y; nextY < height_; nextY++ )
+    {
+        for( int nextX = x + 1; nextX < width_; nextX++ )
+        {
+        }
+    }
+}
+
