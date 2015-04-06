@@ -16,7 +16,7 @@ public: // method
 	bool isFreeBlock(int x, int y);
 	int fillBlock(int x, int y, int pattern);
 	int pullBlock(int x, int y, int pattern);
-	int getNumOfBoardCoverCase(int x, int y, int pattern);
+	int getNumOfBoardCoverCase();
 	void print(char* msg);
 
 public: // field
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 		else
 		{
 			// process
-			possibleCaseNum = board.getNumOfBoardCoverCase(0, 0, 0);
+			possibleCaseNum = board.getNumOfBoardCoverCase();
 		}
 
 		// print an answer
@@ -103,7 +103,6 @@ int Board::fillBlock(int x, int y, int pattern)
 		block_[y1][x1] = FILLED;
 		block_[y2][x2] = FILLED;
 		freeSpace_ -= 3;
-		//print("fill");
 		return 0;
 	}
 	return -1;
@@ -124,48 +123,40 @@ int Board::pullBlock(int x, int y, int pattern)
 	block_[y1][x1] = BLANK;
 	block_[y2][x2] = BLANK;
 	freeSpace_ += 3;
-	//print("pull");
 	return 0;
 }
 
-int Board::getNumOfBoardCoverCase(int x, int y, int pattern)
+int Board::getNumOfBoardCoverCase()
 {
-	//print("init");
 	if (freeSpace_ == 0)
 	{
-		print("solution");
 		return 1;
 	}
-	if (y == (height_ - 1))
-	{
-		return 0;
+
+	// find start point
+	int x, y;
+	bool isBlankFound = false;
+	for (y = 0; y < height_; y++)
+	{ 
+		for (x = 0; x < width_; x++)
+		{
+			if (block_[y][x] == BLANK)
+			{
+				isBlankFound = true;
+				break;
+			}
+		}
+		if (isBlankFound)
+			break;
 	}
 
 	int restCoverCase = 0;
-	int curX;
-	for (int curY = y; curY < height_; curY++)
+	for (int curPattern = 0; curPattern < MAX_PATTERN; curPattern++)
 	{
-		if (y == curY)
-			curX = x;
-		else
-			curX = 0;
-		for (; curX < width_; curX++)
-		{
-			if (!isFreeBlock(curX, curY))
-				continue;
-			for (int curPattern = 0; curPattern < MAX_PATTERN; curPattern++)
-			{
-				if (fillBlock(curX, curY, curPattern) == -1)
-				{
-					cout << "====================================================== Failed : " << curX << "," << curY << "," << curPattern << endl;
-					continue;
-				}
-				print("Filled");
-	 			restCoverCase += getNumOfBoardCoverCase(curX + 1, curY, 0);
-				pullBlock(curX, curY, curPattern);
-				print("Pulled");
-			}
-		}
+		if (fillBlock(x, y, curPattern) == -1)
+			continue;
+		restCoverCase += getNumOfBoardCoverCase();
+		pullBlock(x, y, curPattern);
 	}
 	return restCoverCase;
 }
