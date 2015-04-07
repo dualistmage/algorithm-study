@@ -47,23 +47,25 @@ bool chkWhite(vector<vector<int> >& board,int y,int x){
 		else if(board[ny][nx]==0)
 			cnt++;
 		if(cnt>2) {
-			//cout << "possible pattern" << endl;
 			return false;
 		}
 	}
-	return true; //white가 2개보다 적은 경우
+	return true; //white가 2개보다 적은 경우(불가능한 경우)
 }
 
-// 가능하지 않는 경우 구하는 함수
+// 가능한 경우를 구하는 함수
 bool isPossiblePattern(vector<vector<int> >& board, int _y){
 	for(int i = _y; i < board.size(); i++){
 		for(int j = 0; j < board[i].size(); j++){
 			if(board[i][j] == 0){
-				if (chkWhite(board,i,j)) return false;
+				if (chkWhite(board,i,j)) {
+					//cout << "chkWhite(true) pattern[" << i << "," << j << "]"<< endl;
+					return false;
+				}
 			}
 		}
 	}
-	cout << "possible phase!! " << endl;
+	//cout << "possible phase!! " << endl;
 	return true;
 }
 // board의 모든 빈 칸을 덮을 수 있는 방법의 수를 반환한다.
@@ -84,7 +86,7 @@ int cover(vector<vector<int> >& board) {
 	}
 	// 기저 사례: 모든 칸을 채웠으면 1을 반환
 	if(y == -1) return 1;
-	if(!isPossiblePattern(board, y)) return 0;
+	//if(!isPossiblePattern(board, y)) return 0;
 
 	int ret = 0;
 	for(int type = 0; type < 4; type++){
@@ -146,14 +148,6 @@ int loadMap(string name){
 				y--;
 				if(y==0){
 					cout << cover(vec) << endl;
-					/*
-					cout << "start print!! vector" << endl;
-					for(int ty = 0; ty < vec.size(); ty++){
-						for(int tx = 0; tx < x; tx++){
-							cout << vec[ty][tx] << "," ;
-						}
-						cout << endl;
-					}*/
 					y--;
 				}
 			}
@@ -167,6 +161,7 @@ int loadMap(string name){
 
 int main(int argc, char* argv[])
 {
+	/*
 	clock_t start_time, end_time;
 	start_time = clock(); // Start-time
 
@@ -174,6 +169,41 @@ int main(int argc, char* argv[])
 
 	end_time = clock(); // End-time
 	printf("Time:%f\n " ,((double)(end_time - start_time)) / CLOCKS_PER_SEC);
+	*/
+
+	int count = 0, x = 0, y = 0;
+	char block_[20][20];
+	string tmp;
+	vector<vector<int> > vec;
+
+	cin >> count;
+	
+	while (count > 0){
+		cin >> y >> x;
+		for(int ln = 0; ln < y; ln++){
+			cin >> block_[ln];
+			vector<int> child;
+			for(int i=0; i<x; i++){
+				tmp = block_[ln][i];
+				if(strcmp(tmp.c_str(),"#")==0) child.push_back(1);
+				else child.push_back(0);
+			}
+			vec.push_back(child);
+			child.clear();
+		}
+		cout << cover(vec) << endl;
+		/*
+		cout << "start print!! vector" << endl;
+		for(int ty = 0; ty < vec.size(); ty++){
+			for(int tx = 0; tx < x; tx++){
+				cout << vec[ty][tx] << "," ;
+			}
+			cout << endl;
+		}*/
+		vec.clear();
+		count--;
+	}
+
 	return 0;
 
 }
