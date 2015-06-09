@@ -3,7 +3,7 @@
 
 # Study Stack
 
-| Contents | date |
+| 내용 | 수행일 |
 | -------- | ---- |
 | Google Codejam 문제풀이 (Google Code Jam 2015 Qualification Round A, B) <br /> - problems : https://goo.gl/vnoZhH <br /> - analysis : https://goo.gl/XxuM9N <br /> - source codes : https://goo.gl/rFS5Hd | - | 
 | Chapter 8.7, 8.8, 8.11 | - |
