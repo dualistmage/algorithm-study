@@ -1,7 +1,20 @@
 # algorithm-study
+   This site is for reviewing source code of algorithm problems.
 
-This site is for reviewing source code of algorithm problems.
+# Study Stack
 
-# How to use
-
-Click wiki page to see it.
+| Contents | date |
+| -------- | ---- |
+| Google Codejam 문제풀이 (Google Code Jam 2015 Qualification Round A, B) <br /> - problems : https://goo.gl/vnoZhH <br /> - analysis : https://goo.gl/XxuM9N <br /> - source codes : https://goo.gl/rFS5Hd | - | 
+| Chapter 8.7, 8.8, 8.11 | - |
+| Chapter 8.12, 8.13, 9.1 | - |
+| Chapter 9.16, 9.17, 9.18 | - |
+| Chapter 9.21, 10.1  | - |
+| Chapter 10.2, 10.3, 11.1  | - |
+| Chapter 11.2  | - |
+| Chapter 11.3, 11.4, 12.1  | - |
+| Chapter 12.2, 12.3, 13.1, 13.2 | - |
+| Chapter 13.3, 13.4, 13.5 | - |
+| Chapter 14.1, 14.2, 14.8, 14.9 | - |
+| Chapter 15.1, 15.2, 15.3 | - |
+| Chapter 15.6, 15.11, 15.12 | - |
