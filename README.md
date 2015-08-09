@@ -10,7 +10,7 @@
 | Chapter 8.12, 8.13 | 7월 3일 |
 | Chapter 9.1, 9.16, 9.17, 9.18 | 7월 6일 |
 | Chapter 9.11  | 7월 20일 |
-| Chapter 10.1  | 7월 24일 |
+| Chapter 10.1  | 7월 27일 |
 | Chapter 9.21, 10.2, 10.3  | 예정 |
 | Chapter 11.1  | - |
 | Chapter 11.2  | - |
